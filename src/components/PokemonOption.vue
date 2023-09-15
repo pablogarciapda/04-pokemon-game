@@ -4,13 +4,29 @@ defineProps({
     type: Array,
     required: true,
   },
+  bloqueo: {
+    type: Boolean,
+  },
 })
 </script>
 
 <template>
   <div class="option-container">
     <ul>
-      <li v-for="pokemon in pokemons" :key="pokemon.id">{{ pokemon.name }}</li>
+      <li
+        v-for="pokemon in pokemons"
+        :key="pokemon.id"
+        @click="$emit('selection-pokemon', pokemon.id)"
+        disabled="true"
+      >
+        <button
+          class="boton"
+          @click="$emit('selection-pokemon', pokemon.id)"
+          :disabled="bloqueo"
+        >
+          {{ pokemon.name }}
+        </button>
+      </li>
     </ul>
   </div>
 </template>
@@ -27,6 +43,8 @@ li {
   cursor: pointer;
   margin-bottom: 10px;
   width: 250px;
+  padding: 10px;
+  text-align: center;
 }
 
 li:hover {
@@ -36,5 +54,9 @@ li:hover {
 .options-container {
   display: flex;
   justify-content: center;
+}
+.boton {
+  width: 100%;
+  height: 100%;
 }
 </style>
